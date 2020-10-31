@@ -83,8 +83,8 @@ func main()  {
 
     for key, element := range m {
         fmt.Println("KEY: "+key)
-        fmt.Println("VALUE: "+element.Value)
-        fmt.Println("EXPIRES AT: "+element.ExpiresAt)
+        fmt.Printf("VALUE: %v", element.Value)
+        fmt.Printf("EXPIRES AT: %v\n", element.ExpiresAt)
     }
 
     // you can also marshal/unmarshal the timed map
@@ -138,7 +138,7 @@ The cleaning operation is non-blocking for it is running on a separate goroutine
 
 #### Restarting the cleaner with a new interval
 ```go
-    interval := time.time.Millisecond * 500
+    interval := time.Millisecond * 500
 
     timedMap.RestartCleanerWithInterval(interval)
 ```
