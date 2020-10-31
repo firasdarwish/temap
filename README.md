@@ -150,3 +150,25 @@ The cleaning operation is non-blocking for it is running on a separate goroutine
 ```
 This will start cleaning expired values regardless of the cleaning interval,
 It will run on the main goroutine so it a blocking operation. 
+
+
+## Benchmarks
+```
+go test -bench=. -benchmem
+goos: linux
+goarch: amd64
+pkg: github.com/firasdarwish/temap
+BenchmarkTimedMap_SetTemporary-4        13601955                80.6 ns/op             0 B/op          0 allocs/op
+BenchmarkTimedMap_SetPermanent-4        12831483                82.5 ns/op             0 B/op          0 allocs/op
+BenchmarkTimedMap_Get-4                 39502254                30.2 ns/op             0 B/op          0 allocs/op
+PASS
+ok      github.com/firasdarwish/temap   3.575s
+
+```
+
+### Author
+[Firas M. Darwish](https://firas.dev.sy)
+
+
+### LICENSE
+Licensed under the Apache License, Version 2.0
