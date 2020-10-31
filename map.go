@@ -17,7 +17,6 @@
 package temap
 
 import (
-	"fmt"
 	"sync"
 	"time"
 )
@@ -38,10 +37,6 @@ type timedMap struct {
 }
 
 func New(interval time.Duration) *timedMap {
-
-	s := 4
-	fmt.Printf("EXPIRES AT: %s\n", s)
-
 	t := &timedMap{
 		tmap:              map[string]*element{},
 		mu:                &sync.RWMutex{},
