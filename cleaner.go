@@ -18,7 +18,7 @@ package temap
 
 import "time"
 
-func (t *timedMap) StartCleaner() {
+func (t *TimedMap) StartCleaner() {
 	// already running
 	if t.stoppedCleaner == false {
 		return
@@ -37,7 +37,7 @@ func (t *timedMap) StartCleaner() {
 	}()
 }
 
-func (t *timedMap) StopCleaner() {
+func (t *TimedMap) StopCleaner() {
 	// already stopped
 	if t.stoppedCleaner {
 		return
@@ -53,7 +53,7 @@ func (t *timedMap) StopCleaner() {
 	}()
 }
 
-func (t *timedMap) RestartCleanerWithInterval(interval time.Duration) {
+func (t *TimedMap) RestartCleanerWithInterval(interval time.Duration) {
 	// stop the cleaner
 	t.StopCleaner()
 
@@ -71,7 +71,7 @@ func (t *timedMap) RestartCleanerWithInterval(interval time.Duration) {
 	t.StartCleaner()
 }
 
-func (t *timedMap) clean() {
+func (t *TimedMap) clean() {
 	// skip cleaning session if map is empty
 	if len(t.tmap) == 0 {
 		return
@@ -91,6 +91,6 @@ func (t *timedMap) clean() {
 	}
 }
 
-func (t *timedMap) CleanNow() {
+func (t *TimedMap) CleanNow() {
 	t.clean()
 }

@@ -26,7 +26,7 @@ const (
 	ElementPermanent   = 0
 )
 
-type timedMap struct {
+type TimedMap struct {
 	tmap map[string]*element
 	mu   *sync.RWMutex
 
@@ -36,8 +36,8 @@ type timedMap struct {
 	stoppedCleaner    bool
 }
 
-func New(interval time.Duration) *timedMap {
-	t := &timedMap{
+func New(interval time.Duration) *TimedMap {
+	t := &TimedMap{
 		tmap:              map[string]*element{},
 		mu:                &sync.RWMutex{},
 		cleanerInterval:   interval,

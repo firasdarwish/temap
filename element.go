@@ -23,7 +23,7 @@ type element struct {
 	ExpiresAt int64       `json:"expires_at"` // nanoseconds
 }
 
-func (t *timedMap) SetPermanent(key string, value interface{}) {
+func (t *TimedMap) SetPermanent(key string, value interface{}) {
 	t.mu.Lock()
 	if t.tmap[key] != nil {
 		t.tmap[key].ExpiresAt = ElementPermanent
@@ -37,7 +37,7 @@ func (t *timedMap) SetPermanent(key string, value interface{}) {
 	t.mu.Unlock()
 }
 
-func (t *timedMap) SetTemporary(key string, value interface{}, expiresAt time.Time) {
+func (t *TimedMap) SetTemporary(key string, value interface{}, expiresAt time.Time) {
 	t.mu.Lock()
 	if t.tmap[key] != nil {
 		t.tmap[key].ExpiresAt = expiresAt.UnixNano()
@@ -51,7 +51,7 @@ func (t *timedMap) SetTemporary(key string, value interface{}, expiresAt time.Ti
 	t.mu.Unlock()
 }
 
-func (t *timedMap) Get(key string) (interface{}, int64, bool) {
+func (t *TimedMap) Get(key string) (interface{}, int64, bool) {
 	t.mu.RLock()
 	v := t.tmap[key]
 	t.mu.RUnlock()
@@ -61,13 +61,13 @@ func (t *timedMap) Get(key string) (interface{}, int64, bool) {
 	return v.Value, v.ExpiresAt, true
 }
 
-func (t *timedMap) Remove(key string) {
+func (t *TimedMap) Remove(key string) {
 	t.mu.Lock()
 	delete(t.tmap, key)
 	t.mu.Unlock()
 }
 
-func (t *timedMap) RemoveAll() {
+func (t *TimedMap) RemoveAll() {
 	t.mu.Lock()
 	defer t.mu.Unlock()
 	for k := range t.tmap {
@@ -75,7 +75,7 @@ func (t *timedMap) RemoveAll() {
 	}
 }
 
-func (t *timedMap) MakePermanent(key string) bool {
+func (t *TimedMap) MakePermanent(key string) bool {
 	t.mu.Lock()
 
 	if t.tmap[key] == nil {
@@ -88,7 +88,7 @@ func (t *timedMap) MakePermanent(key string) bool {
 	return true
 }
 
-func (t *timedMap) SetExpiry(key string, expiresAt time.Time) bool {
+func (t *TimedMap) SetExpiry(key string, expiresAt time.Time) bool {
 	t.mu.Lock()
 
 	if t.tmap[key] == nil {
